@@ -1,0 +1,13 @@
+pypdf
+langchain
+torch
+accelerate
+bitsandbytes
+transformers
+ctransformers
+sentence_transformers
+faiss_cpu
+python-dotenv
+replicate
+pinecone-client
+chainlit

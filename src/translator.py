@@ -26,8 +26,6 @@ def translator():
     chain = LLMChain(llm=llm, prompt=prompt)
     return chain
 
-def run(query):
-    chain = translator()
-    return chain.run(query)
+
 
 

@@ -9,5 +9,6 @@ sentence_transformers
 faiss_cpu
 python-dotenv
 replicate
+openai
 pinecone-client
 chainlit

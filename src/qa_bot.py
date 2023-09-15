@@ -79,10 +79,6 @@ def qa_bot():
 
     return qa
 
-async def run(query):
-    bot = qa_bot()
-    response = await bot.arun(query)
-    return response
     
 
 

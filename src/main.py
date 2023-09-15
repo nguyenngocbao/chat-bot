@@ -1,4 +1,8 @@
+import asyncio
+import time
 import qa_bot as bot
+import translator 
 
-if __name__ == "__main__":
-    bot.final_result("my dog is itching ear. please send me some advice")
+async def chat_bot(query):
+    res = await bot.run(query)
+    translator.run(res)

@@ -1,7 +1,7 @@
 from langchain import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
-from langchain.llms import Replicate
+from langchain.llms import CTransformers
 from langchain.vectorstores import Pinecone
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import pinecone
@@ -42,19 +42,22 @@ def retrieval_qa_chain(llm, prompt, db):
     qa_chain = RetrievalQA.from_chain_type(llm=llm,
                                        chain_type='stuff',
                                        retriever=db.as_retriever(search_kwargs={'k': 2}),
-                                       return_source_documents=True,
+                                       return_source_documents=False,
                                        chain_type_kwargs={'prompt': prompt}
                                        )
     return qa_chain
 
 #Loading the model
 def load_llm():
-    llm = Replicate(
-        streaming = True,
-        model = "replicate/llama-2-70b-chat:58d078176e02c219e11eb4da5a02a7830a283b14cf8f94537af893ccff5ee781", 
-        callbacks=[StreamingStdOutCallbackHandler()],
-        input = {"temperature": 0.5, "max_length" :500,"top_p":1})
-    return llm 
+    # Load the locally downloaded model here
+    llm = CTransformers(
+        model = "TheBloke/Llama-2-7B-Chat-GGML",
+        model_type="llama",
+        max_new_tokens = 512,
+        temperature = 0.5
+    )
+    return llm
+     
 
 #loading vector db
 def load_db():
@@ -76,10 +79,10 @@ def qa_bot():
 
     return qa
 
-#output function
-def final_result(query):
-    qa_result = qa_bot()
-    response = qa_result({'query': query})
+async def run(query):
+    bot = qa_bot()
+    response = await bot.arun(query)
     return response
+    
 
 

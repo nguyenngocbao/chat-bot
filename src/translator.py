@@ -9,7 +9,8 @@ from langchain.chains import LLMChain
 os.environ["OPENAI_API_KEY"] = ''
 
 custom_prompt_template = """
-You are a virtual assitant can translate any text input to {language}. You can auto detect the language of input text. You can return the language of input text belong the traslated text. The format is: [translated text]
+Question: {question}
+Answer: Translate the Question to Vietnamese.
 """
 
 def llm():
@@ -18,7 +19,7 @@ def llm():
 
 def translator():
     prompt = PromptTemplate(
-        input_variables=["language"],
+        input_variables=["question"],
         template=custom_prompt_template,
     )
     llm = llm()

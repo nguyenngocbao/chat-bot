@@ -2,6 +2,7 @@ from langchain import PromptTemplate
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.llms import CTransformers
+from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.llms import OpenAI
 from langchain.vectorstores import Pinecone
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -27,7 +28,7 @@ If you don't know the answer, just say that you don't know, don't try to make up
 Context: {context}
 Question: {question}
 
-Only return the helpful answer below and nothing else.
+Only return the helpful answer below and return the helpful answer translated into vietnamese.
 Helpful answer:
 """
 
@@ -58,7 +59,8 @@ def load_llm():
 
 #loading vector db
 def load_db():
-    embeddings = OpenAIEmbeddings()
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2",
+                                       model_kwargs={'device': 'cpu'})
     db = pinecone.init(      
 	    api_key=PINECONE_API_KEY,      
 	    environment=PINECONE_ENV      

@@ -10,5 +10,6 @@ faiss_cpu
 python-dotenv
 replicate
 openai
+tiktoken
 pinecone-client
 chainlit

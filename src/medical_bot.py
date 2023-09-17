@@ -52,8 +52,7 @@ def retrieval_qa_chain(llm, prompt, db):
 #Loading the model
 def load_llm():
     # Load the locally downloaded model here
-    llm = OpenAI(model_name="gpt-3.5-turbo",max_new_tokens = 512,
-        temperature = 0.5)
+    llm = OpenAI(model_name="gpt-3.5-turbo")
     return llm
      
 
